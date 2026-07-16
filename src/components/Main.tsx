@@ -5,10 +5,10 @@ import HealingProgramSection from "./HealingProgramSection";
 export default function Main() {
   return (
     <>
-      <div className="flex flex-col gap-20">
-        <HealingAreaSection />
-        <HealingProgramSection />
-      </div>
+    <div className="flex flex-col gap-20">
+      <HealingAreaSection />
+      <HealingProgramSection />
+    </div>
     </>
   );
 }
