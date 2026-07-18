@@ -62,7 +62,7 @@ const healingAreaData = [
 
 export default function HealingAreaSection() {
   return (
-    <section className="flex flex-col items-center pt-8 px-6 md:px-30 xl:px-100">
+    <section className="flex flex-col items-start md:items-center pt-8 px-6 md:px-30 xl:px-100">
       <div className="flex flex-col max-w-[1120px] gap-10">
         <div className="flex flex-col gap-1">
           <div className="text-13 text-mettaa uppercase">HEALING AREA</div>
