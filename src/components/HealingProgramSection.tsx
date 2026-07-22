@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import CashInfoPopup from "./CashInfoPopup";
 
 type SessionCard = {
   label: string;
@@ -63,22 +64,19 @@ const PROGRAMS: Program[] = [
 ];
 
 const cardClassName =
-  "flex flex-col w-35 h-[110px] rounded-xl px-4 pt-4 bg-white shadow-[1px_2px_4px_0px_#2B5C440A]";
+  "flex flex-col justify-between w-35 h-[110px] rounded-xl px-4 py-4 bg-white shadow-[1px_2px_4px_0px_#2B5C440A]";
 
 export default function HealingProgramSection() {
-  const [openTitles, setOpenTitles] = useState<string[]>([PROGRAMS[0].title]);
+  const [openTitle, setOpenTitle] = useState(PROGRAMS[0].title);
+  const [isCashPopupOpen, setIsCashPopupOpen] = useState(false);
 
   const toggleProgram = (title: string) => {
-    setOpenTitles((prev) =>
-      prev.includes(title)
-        ? prev.filter((item) => item !== title)
-        : [...prev, title]
-    );
+    setOpenTitle((prev) => (prev === title ? prev : title));
   };
 
   return (
-    <section className="flex flex-col items-center pb-8 px-6 md:px-30 xl:px-100">
-      <div className="flex flex-col max-w-[1120px] w-full gap-10">
+    <section className="flex flex-col items-center pb-8">
+      <div className="flex flex-col gap-10 w-full md:max-w-[960px] xl:max-w-[1120px] px-6 lg:px-0">
         <div className="flex flex-col gap-1">
           <div className="text-13 text-mettaa uppercase">
             METTAA Healing Program
@@ -87,7 +85,7 @@ export default function HealingProgramSection() {
         </div>
         <div className="flex flex-col">
           {PROGRAMS.map(({ title, sessions }) => {
-            const isOpen = openTitles.includes(title);
+            const isOpen = openTitle === title;
             return (
               <div key={title} className="flex flex-col w-full">
                 <button
@@ -95,9 +93,15 @@ export default function HealingProgramSection() {
                   onClick={() => toggleProgram(title)}
                   className="flex justify-between items-center px-5 py-[13px]"
                 >
-                  <div className="text-mettaa text-bold">{title}</div>
+                  <div
+                    className={`${isOpen ? "text-mettaa font-bold" : "text-[#9C9A9C]"}`}
+                  >
+                    {title}
+                  </div>
                   <Image
-                    src={isOpen ? "/icon/chevron-up.png" : "/icon/chevron-down.png"}
+                    src={
+                      isOpen ? "/icon/chevron-up.png" : "/icon/chevron-down.png"
+                    }
                     alt="toggle"
                     width={24}
                     height={24}
@@ -112,22 +116,30 @@ export default function HealingProgramSection() {
                     <div className="flex flex-wrap gap-2 px-5 py-5 border-y border-mettaa bg-[#FAFAFA]">
                       {sessions.slice(0, 6).map((card) => (
                         <div key={card.label} className={cardClassName}>
-                          <div className="flex flex-col">
-                            <div className="flex flex-col">
-                              {card.label}
-                              {card.session && (
-                                <>
-                                  <br />
-                                  <span className="text-semibold">{card.session}</span>
-                                </>
+                          <div className="flex flex-col leading-tight min-h-0 gap-0.5">
+                            <span className="inline-flex items-center gap-1 text-[#363436]">
+                              {card.label === "(필요 시)" && (
+                                <Image
+                                  src="/icon/plus.png"
+                                  alt=""
+                                  width={20}
+                                  height={20}
+                                  className="size-5"
+                                />
                               )}
-                            </div>
+                              {card.label}
+                            </span>
+                            {card.session && (
+                              <span className="font-semibold">
+                                {card.session}
+                              </span>
+                            )}
                           </div>
                           {card.icon && (
                             <div className="flex justify-end items-end">
                               <Image
                                 src={card.icon}
-                                alt="play"
+                                alt=""
                                 width={32}
                                 height={32}
                               />
@@ -142,7 +154,22 @@ export default function HealingProgramSection() {
             );
           })}
         </div>
+        <div className="flex items-center justify-end">
+          <button
+            type="button"
+            className="flex items-center gap-1 hover:cursor-pointer"
+            onClick={() => setIsCashPopupOpen(true)}
+          >
+            <Image src="/icon/nukkim.png" alt="nukkim" width={20} height={20} />
+            <span>CASH란?</span>
+          </button>
+        </div>
       </div>
+
+      <CashInfoPopup
+        open={isCashPopupOpen}
+        onClose={() => setIsCashPopupOpen(false)}
+      />
     </section>
   );
 }

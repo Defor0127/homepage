@@ -7,6 +7,7 @@ module.exports = {
       colors: {
         'primary': '#292429',
         'mettaa': '#90C9B6',
+        'hanul-pink': '#FABCB2',
       },
       screens: {
         '3xl': '1920px',

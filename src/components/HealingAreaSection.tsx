@@ -62,20 +62,20 @@ const healingAreaData = [
 
 export default function HealingAreaSection() {
   return (
-    <section className="flex flex-col items-start md:items-center pt-8 px-6 md:px-30 xl:px-100">
-      <div className="flex flex-col max-w-[1120px] gap-10">
+    <section className="flex flex-col items-start md:items-center">
+      <div className="flex flex-col gap-10 w-full md:max-w-[960px] xl:max-w-[1120px] px-6 lg:px-0">
         <div className="flex flex-col gap-1">
           <div className="text-13 text-mettaa uppercase">HEALING AREA</div>
           <h3>진료 영역</h3>
         </div>
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 3xl:gap-x-20 gap-y-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 3xl:gap-x-20 gap-y-8">
           {healingAreaData.map((item) => (
-            <div key={item.title} className="flex flex-col gap-3 px-3 pb-2 h-30 w-80">
+            <div key={item.title} className="flex flex-col gap-3 px-3 pb-2 min-h-30">
               <div className="flex gap-3 items-center text-lg text-mettaa font-medium">
                 <Image src={item.icon} alt={item.title} width={28} height={28} />
                 {item.title}
               </div>
-              <div className="break-keep h-18">{item.description}</div>
+              <div className="break-keep">{item.description}</div>
             </div>
           ))}
         </div>
