@@ -1,8 +1,9 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import DoctorBottomSheet, { type Doctor } from "./DoctorBottomSheet";
+import { useState } from "react";
+import DoctorCard from "./DoctorCard";
+import DoctorMobileSlider from "./DoctorMobileSlider";
+import type { Doctor } from "./DoctorBottomSheet";
 
 type Clinic = {
   id: string;
@@ -39,9 +40,9 @@ const CLINICS: Clinic[] = [
           careers: [
             "강원대학교병원 정신건강의학과 전공의 수료",
             "고려대학교 의과대학 정신과학 박사과정",
-            "전) 이지브레인의원 부원장",
-            "전) 아주편한병원 진료과장",
-            "전) 더공감정신건강의학과 부원장",
+            "전)이지브레인의원 부원장",
+            "전)아주편한병원 진료과장",
+            "전)더공감정신건강의학과 부원장",
             "대한신경정신의학과 정회원",
             "한국정신분석학회 정신치료전문과정 수료",
             "대한불안의학회 불안장애 심층치료과정 수료",
@@ -197,9 +198,9 @@ const CLINICS: Clinic[] = [
         alt: "김수진",
         sheet: {
           careers: [
-            "인제대학교 상계백병원 정신건강의학과 전공의 수료",
+            "인제대학교상계백병원 정신건강의학과 전공의 수료",
             "인제대학교 의과대학 졸업",
-            "전) 상록의료재단 화정병원 진료과장",
+            "전)상록의료재단 화정병원 진료과장",
             "대한신경정신의학회 정회원",
             "대한정신건강재단 COGMED training 수료",
             "대한불안의학회 불안장애 심층치료과정 수료",
@@ -267,7 +268,7 @@ const CLINICS: Clinic[] = [
         sheet: {
           careers: [
             "조선대학교 의과대학 의학전문대학원 졸업",
-            "인제대학교 상계백병원 정신건강의학과전공의 수료",
+            "인제대학교상계백병원 정신건강의학과전공의 수료",
             "전)아람병원 진료과장",
             "전)인천바오로병원 진료과장",
             "대한신경정신의학회 정회원",
@@ -281,8 +282,6 @@ const CLINICS: Clinic[] = [
 export default function DoctorInfoSection() {
   const [activeClinicId, setActiveClinicId] = useState(CLINICS[0].id);
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const sliderRef = useRef<HTMLDivElement>(null);
 
   const activeClinic =
     CLINICS.find((clinic) => clinic.id === activeClinicId) ?? CLINICS[0];
@@ -291,22 +290,6 @@ export default function DoctorInfoSection() {
     setActiveClinicId(clinicId);
     setSelectedDoctor(null);
   };
-
-  useEffect(() => {
-    sliderRef.current?.scrollTo({ left: 0 });
-  }, [activeClinicId]);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
-    const updateIsDesktop = () => {
-      setIsDesktop(mediaQuery.matches);
-      if (!mediaQuery.matches) setSelectedDoctor(null);
-    };
-
-    updateIsDesktop();
-    mediaQuery.addEventListener("change", updateIsDesktop);
-    return () => mediaQuery.removeEventListener("change", updateIsDesktop);
-  }, []);
 
   return (
     <section className="flex flex-col items-center px-6 py-30">
@@ -347,77 +330,30 @@ export default function DoctorInfoSection() {
           })}
         </div>
 
+        <DoctorMobileSlider
+          doctors={activeClinic.doctors}
+          clinicName={activeClinic.name}
+          resetKey={activeClinicId}
+        />
+
         <div
-          ref={sliderRef}
-          className="flex gap-x-3 overflow-x-auto snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-[repeat(3,--spacing(70))] md:justify-between md:gap-x-0 md:overflow-visible md:snap-none gap-y-10"
+          className="hidden lg:grid lg:grid-cols-[repeat(3,--spacing(70))] lg:justify-between gap-y-10"
           role="tabpanel"
           aria-label={activeClinic.name}
         >
-          {activeClinic.doctors.map((doctor, index) => {
-            const isOpen = selectedDoctor?.src === doctor.src;
-
-            return (
-              <div
-                key={doctor.src}
-                className="flex w-[70%] min-w-[70%] shrink-0 snap-start md:block md:w-70 md:min-w-70 md:max-w-70"
-              >
-                <div
-                  className="relative w-full overflow-hidden"
-                  onMouseEnter={() => {
-                    if (isDesktop) setSelectedDoctor(doctor);
-                  }}
-                  onMouseLeave={() => {
-                    if (isDesktop) setSelectedDoctor(null);
-                  }}
-                >
-                  <div className="flex w-full flex-col text-left">
-                    <div className="relative aspect-[280/322] w-full overflow-hidden">
-                      <Image
-                        src={doctor.src}
-                        alt={doctor.alt}
-                        fill
-                        sizes="280px"
-                        className={doctor.imageClassName ?? "object-cover"}
-                        priority={index === 0}
-                      />
-                    </div>
-                    <div className="relative z-10 flex w-full items-end justify-between gap-3 p-5 -mt-13">
-                      <div className="flex flex-col border-l-2 border-hanul-perple px-3 gap-1">
-                        <div className="text-hanul-dark text-13">
-                          {activeClinic.name}정신건강의학과
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm leading-[1.4]">전문의</span>
-                          <span className="text-xl font-semibold leading-6">
-                            {doctor.alt}
-                          </span>
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        className="shrink-0 md:hidden text-sm text-hanul-dark hover:cursor-pointer"
-                        onClick={() => setSelectedDoctor(doctor)}
-                      >
-                        <Image
-                          src="/icon/puppleplus.png"
-                          alt="자세히"
-                          width={24}
-                          height={24}
-                        />
-                      </button>
-                    </div>
-                  </div>
-
-                  <DoctorBottomSheet
-                    open={isOpen}
-                    doctor={doctor}
-                    clinicName={activeClinic.name}
-                    onClose={() => setSelectedDoctor(null)}
-                  />
-                </div>
-              </div>
-            );
-          })}
+          {activeClinic.doctors.map((doctor, index) => (
+            <div key={doctor.src} className="w-70">
+              <DoctorCard
+                doctor={doctor}
+                clinicName={activeClinic.name}
+                priority={index === 0}
+                open={selectedDoctor?.src === doctor.src}
+                onOpen={() => setSelectedDoctor(doctor)}
+                onClose={() => setSelectedDoctor(null)}
+                interaction="hover"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

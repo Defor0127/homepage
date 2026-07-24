@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function AboutUsSection() {
   return (
-    <section className="flex items-center justify-center">
+    <section className="flex items-center justify-center pt-8">
       <div className="flex flex-col md:flex-row gap-15 md:gap-0 md:max-w-240 xl:max-w-280 break-keep w-full items-between justify-between pb-[90px] md:pb-30">
         <div className="flex flex-col gap-5 w-full max-w-[358px] px-6">
           <div className="flex flex-col gap-2">

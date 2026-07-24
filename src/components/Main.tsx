@@ -5,6 +5,7 @@ import DoctorInfoSection from "./DoctorInfoSection";
 import BookPhotoSection from "./BookPhotoSection";
 import HistorySection from "./HistorySection";
 import AboutUsSection from "./AboutUsSection";
+import CopyrightSection from "./CopyrightSection";
 
 export default function Main() {
   return (
@@ -17,6 +18,7 @@ export default function Main() {
         <ClinicCourseSection />
         <HealingAreaSection />
         <HealingProgramSection />
+        <CopyrightSection />
       </div>
     </>
   );
