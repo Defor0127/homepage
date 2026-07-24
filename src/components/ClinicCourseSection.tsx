@@ -18,7 +18,7 @@ const STEPS = [
 export default function ClinicCourseSection() {
   return (
     <section className="flex flex-col items-start md:items-center py-25 bg-[url('/image/clinic_course_bg.png')] bg-[linear-gradient(259.49deg,rgba(251,187,177,0.6)_10.86%,#8570A7_83.17%),linear-gradient(0deg,rgba(0,0,0,0.2),rgba(0,0,0,0.2))] bg-no-repeat bg-cover bg-center">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-0 w-full md:max-w-[960px] xl:max-w-[1120px] px-6 lg:px-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-0 w-full md:max-w-240 xl:max-w-280 px-6 lg:px-0">
         <div className="flex flex-col items-start gap-1">
           <div className="text-hanul-pink text-13 leading-[1.4]">
             SKY MENTAL HEALTH CLINIC
@@ -37,7 +37,7 @@ export default function ClinicCourseSection() {
                     {step.title}
                   </div>
                 </div>
-                <div className="text-white/80">{step.description}</div>
+                <div className="text-white/80 text-sm leading-[1.4] md:text-base">{step.description}</div>
               </div>
               {index < STEPS.length - 1 && <hr className="border-white/20" />}
             </Fragment>

@@ -42,14 +42,14 @@ export default function HeroSlider() {
                     height={157}
                   />
                 </div>
-                <div className="text-[68px] leading-[1.5] text-[#292429] font-light whitespace-nowrap">
+                <div className="text-[68px] leading-normal text-primary font-light whitespace-nowrap">
                   2026년 9월,
                   <br />{" "}
                   <span className="font-bold">
                     <span className="text-[#00ADEF]">하</span>
                     <span className="text-[#0094DA]">늘</span>
-                    <span className="font-normal text-[#292429]">과</span>{" "}
-                    <span className="font-bold text-[#90C9B6]">METTAA</span>
+                    <span className="font-normal text-primary">과</span>{" "}
+                    <span className="font-bold text-mettaa">METTAA</span>
                   </span>
                   가 <br />
                   함께합니다.
@@ -64,7 +64,7 @@ export default function HeroSlider() {
                 />
               </div>
             </div>
-            <div className="flex w-full items-center justify-center text-center text-[#5A525B] text-[32px] leading-[1.5]">
+            <div className="flex w-full items-center justify-center text-center text-[#5A525B] text-[32px] leading-normal">
               <p>
                 메타의원의 역사와 하늘 정신건강의학과 의원의 열정이 만나
                 <br />
@@ -86,7 +86,7 @@ export default function HeroSlider() {
                 priority
               />
             </div>
-            <div className="text-center font-maruburi text-[40px] font-light leading-[1.5]">
+            <div className="text-center font-maruburi text-[40px] font-light leading-normal">
               듣고 싶습니다. <span className="font-bold">당신의 이야기</span>
               <br />
               지키겠습니다. <span className="font-bold">당신의 프라이버시</span>
@@ -112,7 +112,7 @@ export default function HeroSlider() {
         </div>
       </div>
 
-      <div className="item-center flex w-full justify-center gap-1 border pb-8 text-[13px] font-semibold leading-[1.4]">
+      <div className="item-center flex w-full justify-center gap-1 border pb-8 text-13 font-semibold leading-[1.4]">
         {slideIds.map((id, index) => (
           <button
             key={id}

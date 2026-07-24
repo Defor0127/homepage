@@ -22,30 +22,31 @@ type DoctorBottomSheetProps = {
 export default function DoctorBottomSheet({
   open,
   doctor,
-  clinicName,
   onClose,
 }: DoctorBottomSheetProps) {
   return (
     <div
-      className={`rounded-xl absolute inset-0 z-20 flex flex-col bg-white/80 backdrop-blur-[2px] transition-transform duration-300 ease-out ${
-        open ? "translate-y-0" : "translate-y-full pointer-events-none"
+      className={`absolute inset-0 z-20 flex flex-col justify-end items-center overflow-hidden rounded-xl bg-[#3F1F42]/80 backdrop-blur-sm shadow-[inset_1px_1px_12px_0px_#00000033] break-keep transition-transform duration-300 ease-out ${
+        open ? "translate-y-0" : "translate-y-[calc(100%+2px)] pointer-events-none"
       }`}
       role="dialog"
       aria-modal="true"
       aria-hidden={!open}
       aria-label={`${doctor.alt} 상세 정보`}
+      onClick={onClose}
     >
-      {/* 바텀시트 디자인 영역 */}
-      <div className="flex h-full flex-col bg-[#3F1F42CC]/80 rounded-xl">
-        <div className="flex overflow-y-auto px-2 py-5">
-          <ul className="flex flex-col align-center">
-            {doctor.sheet.careers.map((career) => (
-              <li className="text-sm text-white tracking-[-2%] font-medium" key={career}>
-                - {career}
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="w-full px-2 py-4 text-[14px]">
+        <ul className="flex flex-col gap-0.5">
+          {doctor.sheet.careers.map((career) => (
+            <li
+              key={career}
+              className="flex items-start gap-2 text-white tracking-[-2%] font-medium leading-snug"
+            >
+              <span className="mt-[0.45em] h-1 w-1 shrink-0 rounded-full bg-white" />
+              <span className="min-w-0 flex-1 break-all">{career}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

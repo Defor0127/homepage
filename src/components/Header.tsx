@@ -31,7 +31,7 @@ export default function Header() {
           {navItems.map((item) => (
             <div
               key={item}
-              className="text-[16px] leading-[1.4] text-[#A983AD]"
+              className="text-base leading-[1.4] text-hanul-perple"
             >
               {item}
             </div>

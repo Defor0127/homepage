@@ -42,6 +42,14 @@ const maruBuri = localFont({
   display: "swap",
 });
 
+const ramaraja = localFont({
+  src: "../../public/font/ramaraja/Ramaraja-Regular.ttf",
+  weight: "400",
+  style: "normal",
+  variable: "--family-ramaraja",
+  display: "swap",
+});
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -60,7 +68,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${pretendard.variable} ${maruBuri.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${pretendard.variable} ${maruBuri.variable} ${ramaraja.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

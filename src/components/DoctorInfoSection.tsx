@@ -264,8 +264,9 @@ const CLINICS: Clinic[] = [
       {
         src: "/image/jihye.png",
         alt: "한지혜",
-        sheet: { careers: [ 
-          "조선대학교 의과대학 의학전문대학원 졸업",
+        sheet: {
+          careers: [
+            "조선대학교 의과대학 의학전문대학원 졸업",
             "인제대학교 상계백병원 정신건강의학과전공의 수료",
             "전)아람병원 진료과장",
             "전)인천바오로병원 진료과장",
@@ -308,10 +309,10 @@ export default function DoctorInfoSection() {
   }, []);
 
   return (
-    <section className="flex flex-col items-center px-6 py-25">
-      <div className="flex flex-col gap-10 w-full md:max-w-[960px] xl:max-w-[1120px]">
+    <section className="flex flex-col items-center px-6 py-30">
+      <div className="flex flex-col gap-10 w-full md:max-w-240 xl:max-w-280">
         <div className="flex flex-col gap-1">
-          <div className="uppercase text-[#A983AD]">
+          <div className="uppercase text-hanul-perple">
             SKY MENTAL HEALTH Clinic
           </div>
           <h3>의료진 소개</h3>
@@ -331,13 +332,16 @@ export default function DoctorInfoSection() {
                 role="tab"
                 aria-selected={isActive}
                 onClick={() => handleClinicChange(clinic.id)}
-                className={`leading-[1.4] transition-colors ${
+                className={`leading-[1.4] transition-colors px-0.5 pt-1 pb-0.5 ${
                   isActive
-                    ? "text-[#835A88] font-medium border-b-2"
-                    : "text-[#5A525B]/60 hover:text-[#5A525B]"
+                    ? "text-hanul-perple font-bold border-b-2 border-hanul-perple"
+                    : "text-inactive"
                 }`}
               >
-                {clinic.name}
+                {clinic.name.slice(0, 2)}
+                <span className="text-sm font-normal">
+                  {clinic.name.slice(2)}
+                </span>
               </button>
             );
           })}
@@ -345,7 +349,7 @@ export default function DoctorInfoSection() {
 
         <div
           ref={sliderRef}
-          className="flex overflow-x-auto snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-[repeat(3,280px)] md:justify-between md:overflow-visible md:snap-none gap-y-10"
+          className="flex gap-x-3 overflow-x-auto snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-[repeat(3,--spacing(70))] md:justify-between md:gap-x-0 md:overflow-visible md:snap-none gap-y-10"
           role="tabpanel"
           aria-label={activeClinic.name}
         >
@@ -355,10 +359,10 @@ export default function DoctorInfoSection() {
             return (
               <div
                 key={doctor.src}
-                className="flex w-full min-w-full shrink-0 snap-start justify-center md:block md:w-[280px] md:min-w-[280px] md:max-w-[280px] md:shrink-0"
+                className="flex w-[70%] min-w-[70%] shrink-0 snap-start md:block md:w-70 md:min-w-70 md:max-w-70"
               >
                 <div
-                  className="relative w-full max-w-[280px] overflow-hidden md:max-w-none"
+                  className="relative w-full overflow-hidden"
                   onMouseEnter={() => {
                     if (isDesktop) setSelectedDoctor(doctor);
                   }}
@@ -377,21 +381,21 @@ export default function DoctorInfoSection() {
                         priority={index === 0}
                       />
                     </div>
-                    <div className="relative z-10 flex w-full items-end justify-between gap-3 p-5 -mt-[52px]">
-                      <div className="flex flex-col border-l-2 border-[#A983AD] px-3 gap-1">
-                        <div className="text-[#835A88]">
+                    <div className="relative z-10 flex w-full items-end justify-between gap-3 p-5 -mt-13">
+                      <div className="flex flex-col border-l-2 border-hanul-perple px-3 gap-1">
+                        <div className="text-hanul-dark text-13">
                           {activeClinic.name}정신건강의학과
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-sm">전문의</span>
-                          <span className="text-xl font-semibold">
+                          <span className="text-sm leading-[1.4]">전문의</span>
+                          <span className="text-xl font-semibold leading-6">
                             {doctor.alt}
                           </span>
                         </div>
                       </div>
                       <button
                         type="button"
-                        className="shrink-0 md:hidden text-sm text-[#835A88] hover:cursor-pointer"
+                        className="shrink-0 md:hidden text-sm text-hanul-dark hover:cursor-pointer"
                         onClick={() => setSelectedDoctor(doctor)}
                       >
                         <Image

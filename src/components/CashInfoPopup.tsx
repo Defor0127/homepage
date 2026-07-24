@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect } from "react";
 
 type CashInfoPopupProps = {
   open: boolean;
@@ -14,7 +15,7 @@ type CashModule = {
   sessions: string[];
 };
 
-const ENGLISH_CLASSNAME = "text-[#8F8F8F] leading-[1.4]";
+const ENGLISH_CLASSNAME = "text-[#8F8F8F] text-sm leading-[1.4]";
 
 const CASH_MODULES: CashModule[] = [
   {
@@ -50,23 +51,34 @@ const CASH_MODULES: CashModule[] = [
 ];
 
 export default function CashInfoPopup({ open, onClose }: CashInfoPopupProps) {
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
   if (!open) return null;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      className="fixed inset-0 z-50 flex items-center justify-center px-5 pt-4 pb-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby="cash-info-title"
     >
       <button
         type="button"
-        className="absolute inset-0 bg-black/40"
+        className="absolute inset-0 bg-[#171719]/62"
         aria-label="닫기"
         onClick={onClose}
       />
       <div className="flex flex-col relative z-10 w-full max-w-[375px] bg-white rounded-3xl">
-        <div className="flex py-3 px-8 gap-1 justify-between bg-[#90C9B6] rounded-t-3xl items-center">
+        <div className="flex py-3 px-8 gap-1 justify-between bg-mettaa rounded-t-3xl items-center">
           <div className="flex gap-1 items-center">
             <Image src="/icon/icoon.png" alt="CASH" width={20} height={20} />
             <div className="font-medium text-white">CASH란?</div>
@@ -75,8 +87,8 @@ export default function CashInfoPopup({ open, onClose }: CashInfoPopupProps) {
             <Image
               src="/icon/x-close.png"
               alt=""
-              width={20}
-              height={20}
+              width={24}
+              height={24}
               className="cursor-pointer"
             />
           </button>
@@ -86,7 +98,7 @@ export default function CashInfoPopup({ open, onClose }: CashInfoPopupProps) {
             <div className="font-semibold text-primary">CASH Program 9회</div>
             <div>변화와 행동의 자가치유 프로그램</div>
           </div>
-          <hr className="border-[#90C9B6]" />
+          <hr className="border-mettaa" />
           <div className="flex flex-col gap-5">
             {CASH_MODULES.map((module, moduleIndex) => {
               const sessionOffset = CASH_MODULES.slice(0, moduleIndex).reduce(
@@ -99,8 +111,8 @@ export default function CashInfoPopup({ open, onClose }: CashInfoPopupProps) {
                   <div className={ENGLISH_CLASSNAME}>{module.english}</div>
                   <div className={module.accentClassName}>{module.korean}</div>
                   {module.sessions.map((session, index) => (
-                    <div key={index} className="flex gap-2">
-                      <div className={module.accentClassName}>
+                    <div key={index} className="flex gap-2 items-center">
+                      <div className={`${module.accentClassName} text-sm`}>
                         {sessionOffset + index + 1}회차
                       </div>
                       <div className="text-[#363436]">{session}</div>

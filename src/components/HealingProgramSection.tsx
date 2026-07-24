@@ -76,7 +76,7 @@ export default function HealingProgramSection() {
 
   return (
     <section className="flex flex-col items-center pb-8">
-      <div className="flex flex-col gap-10 w-full md:max-w-[960px] xl:max-w-[1120px] px-6 lg:px-0">
+      <div className="flex flex-col gap-10 w-full md:max-w-240 xl:max-w-280 px-6 lg:px-0">
         <div className="flex flex-col gap-1">
           <div className="text-13 text-mettaa uppercase">
             METTAA Healing Program
@@ -94,7 +94,7 @@ export default function HealingProgramSection() {
                   className="flex justify-between items-center px-5 py-[13px]"
                 >
                   <div
-                    className={`${isOpen ? "text-mettaa font-bold" : "text-[#9C9A9C]"}`}
+                    className={`${isOpen ? "text-mettaa font-bold" : "text-inactive"}`}
                   >
                     {title}
                   </div>
